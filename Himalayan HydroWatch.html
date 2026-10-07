@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Himalayan HydroWatch</title>
+<meta name="description" content="Himalayan HydroWatch - digital monitoring of ecological impact of hydropower projects in the Himalayan region">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#071612;--panel:#0d211b;--text:#edf8f2;--muted:#9db6aa;--green:#54d18a;--green2:#1f9d62;--mint:#b9f6d0;--yellow:#f5c85b;--red:#ff6f61;--line:rgba(185,246,208,.12);--shadow:0 22px 70px rgba(0,0,0,.28)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:radial-gradient(circle at 70% 5%,#123e30 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.6;padding-top:env(safe-area-inset-top,0)}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.container{width:min(1180px,92%);margin:auto}
+nav{position:sticky;top:0;z-index:20;background:rgba(7,22,18,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.navin{height:72px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:19px}
+.brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--green),#8cf0ba);display:grid;place-items:center}
+.links{display:flex;gap:22px;color:var(--muted);font-size:14px}
+.links a{padding:4px 0;border-bottom:2px solid transparent}.links a:hover{color:var(--text)}
+.links a.on{color:var(--text);border-color:var(--green)}
+.hero{min-height:620px;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;padding:70px 0}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid rgba(84,209,138,.25);background:rgba(84,209,138,.07);border-radius:99px;color:var(--mint);font-size:12px;font-weight:700}
+h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(42px,6vw,72px);line-height:1;margin:22px 0}
+h1 span{color:var(--green)}
+.hero p{font-size:18px;color:var(--muted);max-width:640px}
+.cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-weight:700;font-size:14px}
+.btn:hover{border-color:var(--green)}
+.btn.primary{background:var(--green);color:#062016;border-color:var(--green)}
+.btn.danger{border-color:rgba(255,111,97,.5);color:#ffb1a9}
+.mountains{height:420px;border:1px solid var(--line);border-radius:28px;overflow:hidden;position:relative;background:linear-gradient(180deg,#102e26,#071612)}
+.sun{position:absolute;width:100px;height:100px;border-radius:50%;background:#f7d783;right:58px;top:48px;box-shadow:0 0 65px rgba(247,215,131,.25)}
+.peak{position:absolute;bottom:0;width:0;height:0;border-left:180px solid transparent;border-right:180px solid transparent;border-bottom:330px solid #173d31}
+.p1{left:-40px}.p2{left:130px;border-bottom-color:#1d4b3a;border-left-width:210px;border-right-width:210px;border-bottom-width:390px}.p3{right:-120px;border-bottom-color:#102e25;border-left-width:240px;border-right-width:240px;border-bottom-width:350px}
+.snow{position:absolute;left:-24px;top:82px;border-left:24px solid transparent;border-right:24px solid transparent;border-bottom:46px solid #d8eee0}
+.river{position:absolute;bottom:-5px;left:46%;width:70px;height:270px;background:linear-gradient(90deg,transparent,#69d9b0,transparent);transform:skew(-17deg);filter:blur(1px);transition:background .8s}
+.river.silt{background:linear-gradient(90deg,transparent,#c49a5c,transparent)}
+.mapcard{position:absolute;left:20px;bottom:20px;right:20px;padding:15px;border-radius:16px;background:rgba(6,22,17,.85);border:1px solid var(--line);backdrop-filter:blur(10px);font-size:14px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--green);box-shadow:0 0 12px var(--green);margin-right:7px}
+.dot.warn{background:var(--yellow);box-shadow:0 0 12px var(--yellow)}.dot.critical{background:var(--red);box-shadow:0 0 12px var(--red)}
+section{padding:76px 0}
+.section-head{max-width:720px;margin-bottom:32px}
+.kicker{color:var(--green);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.14em}
+h2{font-family:"Space Grotesk",sans-serif;font-size:40px;line-height:1.1;margin:9px 0 12px}
+.section-head p{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:linear-gradient(180deg,rgba(16,42,34,.9),rgba(10,30,24,.9));border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.icon{font-size:28px}.card h3{margin:12px 0 6px;font-size:17px}.card p{color:var(--muted);font-size:14px;margin:0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{padding:9px 14px;border-radius:11px;border:1px solid var(--line);background:#0a1b16;font-size:14px;font-weight:600}
+.tab[aria-selected=true]{background:rgba(84,209,138,.14);border-color:var(--green);color:var(--mint)}
+.techpanel{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.techpanel .icon{font-size:54px}.techpanel p{color:var(--muted);margin:4px 0 0}
+.dashboard{background:#06110e;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+.dashbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:6px 4px 16px}
+.live{font-size:12px;font-weight:800;color:var(--green)}.live.paused{color:var(--muted)}
+.ctrls{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.ctrls .btn{padding:9px 13px;font-size:13px}
+.dashgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{padding:13px;border:1px solid var(--line);border-radius:14px;background:#0a1b16;text-align:left;width:100%}
+.stat[aria-pressed=true]{border-color:var(--green);background:#0d2820}
+.stat small{color:var(--muted)}.value{font-size:22px;font-weight:800;margin:3px 0}.value i{font-size:12px;color:var(--muted);font-style:normal;font-weight:500}
+.status{font-size:12px;font-weight:700}.normal{color:var(--green)}.warn{color:var(--yellow)}.critical{color:var(--red)}
+.chart{margin-top:12px;height:230px;padding:14px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#0b221b,#081713)}
+.chart svg{width:100%;height:calc(100% - 22px)}
+.chart b{font-size:13px}
+.map{border-radius:16px;border:1px solid var(--line);background:#0b211a;overflow:hidden}
+.map svg{display:block;width:100%}
+.pin{cursor:pointer}.pin:focus-visible circle.hit{stroke:var(--mint);stroke-width:2}
+.alerts{margin-top:12px;border:1px solid var(--line);border-radius:16px;padding:12px;background:#0a1b16;max-height:210px;overflow:auto}
+.alerts b{font-size:13px}
+.al{display:flex;gap:10px;padding:9px 10px;margin-top:8px;border-radius:12px;font-size:13px;border:1px solid rgba(245,200,91,.3);background:rgba(245,200,91,.08)}
+.al.critical{border-color:rgba(255,111,97,.4);background:rgba(255,111,97,.09)}.al.ok{border-color:rgba(84,209,138,.3);background:rgba(84,209,138,.07)}
+.al span{color:var(--muted)}.empty{color:var(--muted);font-size:13px;margin:8px 0 0}
+label.sl{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+input[type=range]{accent-color:var(--green)}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.step{position:relative;text-align:center;padding:20px 12px;border:1px solid var(--line);background:#0b211a;border-radius:17px;transition:.3s}
+.step.active{border-color:var(--green);background:#0f2e24;box-shadow:0 0 28px rgba(84,209,138,.2)}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-15px;top:50%;transform:translateY(-50%);color:var(--green);font-size:22px;z-index:2}
+.num{width:30px;height:30px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;background:rgba(84,209,138,.12);color:var(--green);font-weight:800}
+.step p{color:var(--muted);font-size:13px;margin:4px 0 0}
+.scenario{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:start}
+.quote{padding:30px;border:1px solid rgba(84,209,138,.2);border-radius:22px;background:linear-gradient(135deg,rgba(84,209,138,.08),rgba(84,209,138,.02));font-family:"Space Grotesk",sans-serif;font-size:24px}
+.daybox{margin-top:18px;font-family:Inter,sans-serif;font-size:14px}
+.daybox input{width:100%}
+.timeline{display:grid;gap:10px}
+.event{display:flex;flex-direction:column;padding:14px 15px;border-left:2px solid #1b3b30;background:#0b211a;border-radius:0 14px 14px 0;opacity:.4;transition:.35s}
+.event.on{opacity:1;border-color:var(--green2)}.event.now{border-color:var(--green);background:#0f2e24}
+.event span{color:var(--muted);font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ul{padding-left:20px;color:var(--muted)}li{margin:8px 0}
+.footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:13px}
+@media(max-width:900px){.hero,.scenario,.two,.dashgrid{grid-template-columns:1fr}.cards,.flow{grid-template-columns:repeat(2,1fr)}.statgrid{grid-template-columns:repeat(2,1fr)}.step:not(:last-child)::after{display:none}.links{display:none}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}h2{font-size:32px}.mountains{height:340px}.techpanel{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav><div class="container navin">
+<a class="brand" href="#top"><span class="brand-mark">🌿</span>Himalayan HydroWatch</a>
+<div class="links" id="links"><a href="#problem">Problem</a><a href="#technology">Technology</a><a href="#dashboard">Dashboard</a><a href="#workflow">Workflow</a><a href="#scenario">Scenario</a><a href="#scope">Scope</a></div>
+</div></nav>
+<main id="top">
+<section class="hero container" style="padding-top:70px">
+<div>
+<span class="eyebrow">Conceptual digital monitoring product</span>
+<h1>See ecological change <span>before it becomes a crisis.</span></h1>
+<p>Himalayan HydroWatch brings satellite imagery, environmental sensors, drones, GIS and field observations into one monitoring platform for hydropower project areas.</p>
+<div class="cta"><a class="btn primary" href="#dashboard">Explore the dashboard</a><button class="btn" id="heroSim">Trigger a sediment event</button></div>
+<p style="font-size:12px;margin-top:18px">Prototype note: all readings and alerts are simulated demo data, not real measurements.</p>
+</div>
+<div class="mountains" role="img" aria-label="Himalayan monitoring illustration">
+<div class="sun"></div><div class="peak p1"><div class="snow"></div></div><div class="peak p2"></div><div class="peak p3"></div><div class="river" id="river"></div>
+<div class="mapcard"><span class="dot" id="heroDot"></span><b id="heroTitle">Monitoring area online</b><br><small style="color:var(--muted)" id="heroSub">3 stations reporting · all within baseline</small></div>
+</div>
+</section>
+
+<section id="problem"><div class="container">
+<div class="section-head"><div class="kicker">The problem</div><h2>Hydropower development meets a sensitive ecosystem.</h2>
+<p>Himalayan rivers, forests, slopes and habitats are tightly linked. Construction and operation can affect them, so observation is part of responsible project management.</p></div>
+<div class="cards">
+<div class="card"><div class="icon">🌊</div><h3>Water systems</h3><p>Observe river flow, temperature, turbidity and other water-quality indicators.</p></div>
+<div class="card"><div class="icon">🌳</div><h3>Vegetation</h3><p>Track forest cover, vegetation and land-use change around project areas.</p></div>
+<div class="card"><div class="icon">⛰️</div><h3>Land and slopes</h3><p>Monitor erosion, excavation disturbance and slopes needing closer observation.</p></div>
+<div class="card"><div class="icon">🐟</div><h3>Aquatic habitat</h3><p>Support observation of river conditions relevant to aquatic life and biodiversity.</p></div>
+</div></div></section>
+
+<section id="technology"><div class="container">
+<div class="section-head"><div class="kicker">The technology</div><h2>One platform. Multiple environmental eyes.</h2>
+<p>HydroWatch is a data-integration layer: each observation method adds complementary information to one shared picture. Select a method to learn more.</p></div>
+<div class="tabs" role="tablist" id="techTabs"></div>
+<div class="card techpanel" id="techPanel" aria-live="polite"></div>
+</div></section>
+
+<section id="dashboard"><div class="container">
+<div class="section-head"><div class="kicker">Product interface</div><h2>Himalayan HydroWatch dashboard</h2>
+<p>Live-updating simulated readings from three stations. Select a station on the map and a metric card to change the chart, then trigger an event to watch an alert form.</p></div>
+<div class="dashboard">
+<div class="dashbar"><div><b>HIMALAYAN HYDROWATCH</b><br><small style="color:var(--muted)">Project monitoring console · <span id="stName"></span></small></div><span class="live" id="live">● DEMO DATA · LIVE</span></div>
+<div class="ctrls">
+<button class="btn danger" id="simBtn">Simulate sediment event</button>
+<button class="btn" id="pauseBtn">Pause</button>
+<button class="btn" id="resetBtn">Reset</button>
+<label class="sl">Turbidity alert level <input type="range" id="thr" min="20" max="60" value="35"><b id="thrVal">35 NTU</b></label>
+</div>
+<div class="dashgrid">
+<div>
+<div class="statgrid" id="stats"></div>
+<div class="chart"><b id="chartTitle"></b><svg id="chart" viewBox="0 0 500 170" preserveAspectRatio="none" role="img" aria-label="Trend chart"></svg></div>
+</div>
+<div>
+<div class="map"><svg viewBox="0 0 300 230" id="map" role="group" aria-label="Station map">
+<defs><pattern id="g" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0H22" stroke="#12302600" /><path d="M0 0V22" stroke="#143a2d" stroke-width="1"/></pattern></defs>
+<rect width="300" height="230" fill="url(#g)"/>
+<path d="M30 20C80 50 90 90 150 110S230 150 270 215" fill="none" stroke="#69d9b0" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+<path id="plume" d="M150 110S230 150 270 215" fill="none" stroke="#c49a5c" stroke-width="7" stroke-linecap="round" opacity="0"/>
+<g id="pins"></g>
+<text x="10" y="222" fill="#9db6aa" font-size="9">GIS project area · illustrative</text></svg></div>
+<div class="alerts" aria-live="polite"><b>Alert log</b><div id="alerts"><p class="empty">No alerts. All stations are within baseline.</p></div></div>
+</div>
+</div>
+</div>
+</div></section>
+
+<section id="workflow"><div class="container">
+<div class="section-head"><div class="kicker">System workflow</div><h2>Collect → analyze → understand → respond.</h2>
+<p>The system compares incoming observations with baseline information and flags predefined conditions for human review. Steps light up as the dashboard processes an event.</p></div>
+<div class="flow" id="flow"></div>
+</div></section>
+
+<section id="scenario"><div class="container">
+<div class="section-head"><div class="kicker">Demonstration scenario</div><h2>What happens when sediment levels rise?</h2>
+<p>A fictional scenario. Drag the slider through 14 days to see how observations combine into a reviewable alert.</p></div>
+<div class="scenario">
+<div class="quote">“The goal is not to replace environmental experts. It is to give them clearer, faster information about where to look.”
+<div class="daybox"><label>Day <b id="dayVal">1</b> of 14<input type="range" id="day" min="1" max="14" value="1"></label><br><button class="btn" id="runLive" style="margin-top:12px">Run this live on the dashboard</button></div></div>
+<div class="timeline" id="timeline"></div>
+</div></div></section>
+
+<section id="scope"><div class="container">
+<div class="section-head"><div class="kicker">Project scope</div><h2>Useful, realistic, and transparent about its limits.</h2></div>
+<div class="two">
+<div class="card"><h3>Benefits</h3><ul><li>Supports continuous environmental observation.</li><li>Can help identify unusual changes earlier.</li><li>Useful for remote Himalayan project locations.</li><li>Combines spatial and sensor-based information.</li><li>Creates a historical record for comparison.</li><li>Can support environmental decision-making.</li></ul></div>
+<div class="card"><h3>Limitations</h3><ul><li>Sensors require maintenance and calibration.</li><li>Remote locations may have connectivity constraints.</li><li>Satellite imagery has resolution and weather limits.</li><li>Drones cannot operate in every condition or location.</li><li>Digital signals still need human interpretation and field verification.</li><li>Deployment and maintenance can be costly.</li></ul></div>
+</div>
+<div class="card" style="margin-top:18px"><h3>Future scope</h3><p>AI-assisted image analysis, automated change detection, mobile reporting, expanded real-time sensor networks, richer GIS visualization and integration with additional environmental datasets.</p></div>
+<div class="quote" style="margin-top:30px"><div class="kicker">Conclusion</div>Hydropower development in ecologically sensitive regions requires environmental observation. Digital technologies can help organize evidence, visualize change and support timely environmental management.<br><br><strong>MONITOR → DETECT → ALERT → RESPOND</strong><br><br><span style="color:var(--green)">Technology cannot replace environmental responsibility, but it can help us see environmental changes earlier.</span></div>
+</div></section>
+</main>
+<footer class="footer"><div class="container">Himalayan HydroWatch · Conceptual academic prototype · CHE110 Practical Project · All dashboard values are simulated.</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const TECH=[["🛰️","Satellite imagery","Remote","Large-area observation of land cover, vegetation and visible landscape change."],["📡","IoT sensors","Real-time","Environmental measurements collected at selected monitoring points, such as turbidity, flow, pH and temperature."],["🚁","Drones","Local detail","Detailed visual inspection of selected construction and environmental zones."],["🗺️","GIS mapping","Spatial","Connects observations to locations, project boundaries and risk areas."]];
+const STEPS=[["Collect","Sensors, satellites, drones, field data"],["Send","Transmit observations to platform"],["Analyze","Compare with baseline/history"],["Detect","Identify unusual changes"],["Alert","Generate predefined alerts"],["Respond","Human verification and action"]];
+const DAYS=[[1,"Day 1 · Baseline","Sensor readings remain within the illustrative normal range."],[10,"Day 10 · New observation","Drone/satellite imagery shows increased disturbance near a construction zone."],[12,"Day 12 · Signal detected","Water monitoring indicates increased turbidity."],[13,"Day 13 · Alert","The affected location appears on the GIS map for field verification."]];
+const ST=[{n:"Upstream intake",x:60,y:55,b:[7,42,7.5,5]},{n:"Construction zone",x:150,y:110,b:[12,55,7.6,6.5]},{n:"Downstream reach",x:250,y:190,b:[15,63,7.7,8]}];
+const M=[{k:"Turbidity",u:"NTU",i:0,d:1,max:120},{k:"River flow",u:"m³/s",i:1,d:0,max:110},{k:"pH",u:"",i:2,d:2,max:9,min:6},{k:"Temperature",u:"°C",i:3,d:1,max:14,min:0}];
+const N=40;let sel=1,met=0,paused=false,ev=false,lagE=0,e=0,thr=35,hist,levels,tick=0,lastLevel,stepT=[];
+function init(){hist=ST.map(s=>s.b.map(v=>Array.from({length:N},()=>v+(Math.random()-.5)*v*.04)));levels=[0,0,0];lastLevel=[0,0,0];e=0;lagE=0;ev=false;$("alerts").innerHTML='<p class="empty">No alerts. All stations are within baseline.</p>';setSteps(-1)}
+function status(si,mi,v){const m=M[mi];if(mi==0){return v>thr*1.7?2:v>thr?1:0}
+if(mi==1){const b=ST[si].b[1],r=Math.abs(v-b)/b;return r>.4?2:r>.25?1:0}
+if(mi==2){return(v<6.5||v>8.5)?2:(v<6.8||v>8.2)?1:0}
+const b=ST[si].b[3];return Math.abs(v-b)>3?2:Math.abs(v-b)>2?1:0}
+const SL=["Within baseline","Review required","Critical"],SC=["normal","warn","critical"];
+function step(){tick++;e+=((ev?1:0)-e)*.12;lagE+=(e-lagE)*.1;
+ST.forEach((s,si)=>{const boost=si==1?e*70:si==2?lagE*48:0;
+s.b.forEach((b,mi)=>{const a=hist[si][mi],last=a[a.length-1];let t=b;
+if(mi==0)t=b+boost;if(mi==1&&si>0)t=b+e*(si==1?10:6);
+const noise=(Math.random()-.5)*b*.05;const v=last+(t-last)*.3+noise;a.push(v);a.shift()});
+const st=Math.max(...M.map((m,mi)=>status(si,mi,hist[si][mi][N-1])));
+if(st>lastLevel[si]&&st>0)log(si,st);if(st==0&&lastLevel[si]>0&&!ev&&e<.05)log(si,0);lastLevel[si]=st;levels[si]=st});
+if(ev&&e>.15)setSteps(Math.min(5,Math.floor((e-.15)/.85*6)));render()}
+function log(si,st){const box=$("alerts");if(box.querySelector(".empty"))box.innerHTML="";
+const t=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+const tv=hist[si][0][N-1].toFixed(0);const d=document.createElement("div");
+d.className="al "+(st==2?"critical":st==1?"":"ok");
+d.innerHTML=st==0?`<div>✅</div><div><b>${ST[si].n}: back within baseline</b><br><span>${t}</span></div>`:
+`<div>${st==2?"🚨":"⚠️"}</div><div><b>${ST[si].n}: ${st==2?"critical":"warning"}</b><br><span>Turbidity ${tv} NTU. Field verification recommended. · ${t}</span></div>`;
+box.prepend(d);while(box.children.length>8)box.lastChild.remove()}
+function render(){$("stName").textContent=ST[sel].n;
+$("stats").innerHTML=M.map((m,mi)=>{const v=hist[sel][mi][N-1],s=status(sel,mi,v);
+return`<button class="stat" aria-pressed="${mi==met}" data-m="${mi}"><small>${m.k}</small><div class="value">${v.toFixed(m.d)} <i>${m.u}</i></div><span class="status ${SC[s]}">● ${SL[s]}</span></button>`}).join("");
+const m=M[met],a=hist[sel][met],lo=m.min??0,hi=m.max,y=v=>160-((Math.min(hi,Math.max(lo,v))-lo)/(hi-lo))*150;
+const pts=a.map((v,i)=>`${(i/(N-1)*500).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+let th="";if(met==0){th=`<line x1="0" x2="500" y1="${y(thr)}" y2="${y(thr)}" stroke="#f5c85b" stroke-dasharray="6 5" opacity=".7"/><text x="4" y="${y(thr)-4}" fill="#f5c85b" font-size="10">alert level ${thr} NTU</text>`}
+$("chart").innerHTML=`<line x1="0" x2="500" y1="160" y2="160" stroke="rgba(185,246,208,.15)"/><line x1="0" x2="500" y1="85" y2="85" stroke="rgba(185,246,208,.08)"/>${th}<polyline points="${pts}" fill="none" stroke="${["#54d18a","#f5c85b","#ff6f61"][Math.max(0,status(sel,met,a[N-1]))]}" stroke-width="3" stroke-linejoin="round"/>`;
+$("chartTitle").textContent=`${m.k} (${m.u||"pH units"}) · ${ST[sel].n} · simulated`;
+$("pins").innerHTML=ST.map((s,i)=>{const c=["#54d18a","#f5c85b","#ff6f61"][levels[i]];
+return`<g class="pin" tabindex="0" role="button" aria-label="${s.n}: ${SL[levels[i]]}" data-s="${i}"><circle class="hit" cx="${s.x}" cy="${s.y}" r="${i==sel?15:11}" fill="${c}" fill-opacity=".22" stroke="${i==sel?"#b9f6d0":c}" stroke-width="${i==sel?2:1}"/><circle cx="${s.x}" cy="${s.y}" r="5" fill="${c}"/><text x="${s.x}" y="${s.y-19}" text-anchor="middle" fill="#edf8f2" font-size="9">${s.n}</text></g>`}).join("");
+$("plume").setAttribute("opacity",Math.min(.8,lagE*1.1).toFixed(2));
+const w=Math.max(...levels),n=levels.filter(x=>x>0).length;
+$("river").classList.toggle("silt",lagE>.25);
+$("heroDot").className="dot "+["","warn","critical"][w];
+$("heroTitle").textContent=w==0?"Monitoring area online":w==1?"Warning: review required":"Critical: field check needed";
+$("heroSub").textContent=n?`${n} of 3 stations flagged · see dashboard`:"3 stations reporting · all within baseline"}
+function setSteps(k){$("flow").querySelectorAll(".step").forEach((el,i)=>el.classList.toggle("active",i<=k&&k>=0))}
+function trigger(){ev=true;location.hash="#dashboard"}
+function mkStatic(){
+$("techTabs").innerHTML=TECH.map((t,i)=>`<button class="tab" role="tab" aria-selected="${i==0}" data-t="${i}">${t[0]} ${t[1]}</button>`).join("");
+const showT=i=>{$("techTabs").querySelectorAll(".tab").forEach((b,j)=>b.setAttribute("aria-selected",i==j));const t=TECH[i];$("techPanel").innerHTML=`<div class="icon">${t[0]}</div><div><h3 style="margin:0">${t[1]} <span style="font-size:11px;color:var(--green)">${t[2].toUpperCase()}</span></h3><p>${t[3]}</p></div>`};
+$("techTabs").onclick=e=>{const b=e.target.closest(".tab");if(b)showT(+b.dataset.t)};showT(0);
+$("flow").innerHTML=STEPS.map((s,i)=>`<div class="step"><div class="num">${i+1}</div><b>${s[0]}</b><p>${s[1]}</p></div>`).join("");
+$("timeline").innerHTML=DAYS.map(d=>`<div class="event" data-d="${d[0]}"><b>${d[1]}</b><span>${d[2]}</span></div>`).join("");
+const upd=()=>{const v=+$("day").value;$("dayVal").textContent=v;let cur=0;DAYS.forEach((d,i)=>{if(v>=d[0])cur=i});$("timeline").querySelectorAll(".event").forEach((el,i)=>{el.classList.toggle("on",i<=cur);el.classList.toggle("now",i==cur)})};
+$("day").oninput=upd;upd();
+$("stats").onclick=e=>{const b=e.target.closest(".stat");if(b){met=+b.dataset.m;render()}};
+const pick=e=>{const p=e.target.closest(".pin");if(p){sel=+p.dataset.s;render()}};
+$("map").onclick=pick;$("map").onkeydown=e=>{if(e.key=="Enter"||e.key==" "){e.preventDefault();pick(e)}};
+$("simBtn").onclick=()=>{ev=!ev;$("simBtn").textContent=ev?"Stop sediment event":"Simulate sediment event";if(!ev)setSteps(-1)};
+$("heroSim").onclick=()=>{ev=true;$("simBtn").textContent="Stop sediment event";location.hash="#dashboard"};
+$("runLive").onclick=()=>{ev=true;$("simBtn").textContent="Stop sediment event";location.hash="#dashboard"};
+$("pauseBtn").onclick=()=>{paused=!paused;$("pauseBtn").textContent=paused?"Resume":"Pause";$("live").textContent=paused?"● PAUSED":"● DEMO DATA · LIVE";$("live").classList.toggle("paused",paused)};
+$("resetBtn").onclick=()=>{init();$("simBtn").textContent="Simulate sediment event";render()};
+$("thr").oninput=()=>{thr=+$("thr").value;$("thrVal").textContent=thr+" NTU";render()};
+const secs=[...document.querySelectorAll("main section[id]")],lk=[...$("links").children];
+addEventListener("scroll",()=>{let c="";secs.forEach(s=>{if(s.getBoundingClientRect().top<140)c="#"+s.id});lk.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==c))},{passive:true})}
+init();render();mkStatic();render();
+setInterval(()=>{if(!paused&&!document.hidden)step()},1200);
+</script>
+</body>
+</html>
